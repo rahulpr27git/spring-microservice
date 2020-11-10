@@ -14,17 +14,15 @@ import java.util.List;
 @RequestMapping("/api/v1/rooms")
 public class RoomController {
 
-    @Autowired
+    final
     RoomService roomService;
+
+    public RoomController(RoomService roomService) {
+        this.roomService = roomService;
+    }
 
     @GetMapping
     public List<Room> getAll() {
-//        return Arrays.asList(
-//                new Room(1L, 1, 2, 50d),
-//                new Room(2L, 2, 3, 100d),
-//                new Room(3L, 3, 4, 200d),
-//                new Room(4L, 4, 1, 20d)
-//        );
         return roomService.getAll();
     }
 
@@ -32,6 +30,7 @@ public class RoomController {
     public Room addRoom(@RequestBody Room room) {
         return roomService.addRoom(room);
     }
+
     @DeleteMapping("/{id}")
     public Response delete(@PathVariable(value = "id") long id) {
         return roomService.delete(id);

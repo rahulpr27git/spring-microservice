@@ -13,23 +13,23 @@ import java.util.List;
 @RequestMapping("/api/v1/guests")
 public class GuestController {
 
-    @Autowired
-    GuestService guestService;
+    final GuestService guestService;
+
+    public GuestController(GuestService guestService) {
+        this.guestService = guestService;
+    }
+
     @GetMapping
     public List<Guest> getAll() {
-//        return Arrays.asList(
-//                new Guest(1L, "Rahul", "Kolkata", "987654351", "124242235", "242425"),
-//                new Guest(2L, "Jay", "Kolkata", "987654351", "124242235", "242425"),
-//                new Guest(3L, "Abhishek", "Kolkata", "987654351", "124242235", "242425"),
-//                new Guest(4L, "Shiwam", "Kolkata", "987654351", "124242235", "242425")
-//        );
         return guestService.getAll();
     }
+
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public Guest addGuest(@RequestBody Guest guest) {
         return guestService.addGuest(guest);
     }
+
     @DeleteMapping("/{id}")
     public Response delete(@PathVariable(value = "id") long id) {
         return guestService.delete(id);
