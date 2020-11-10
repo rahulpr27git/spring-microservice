@@ -4,6 +4,7 @@ import com.springcloud.guestservice.resource.model.Guest;
 import com.springcloud.guestservice.resource.pojo.Response;
 import com.springcloud.guestservice.service.GuestService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,6 +25,7 @@ public class GuestController {
 //        );
         return guestService.getAll();
     }
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public Guest addGuest(@RequestBody Guest guest) {
         return guestService.addGuest(guest);

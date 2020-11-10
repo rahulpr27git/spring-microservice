@@ -23,4 +23,11 @@ public class Guest {
     private String pincode;
     private String govermentId;
 
+    public Guest(String name, String address, String phoneNumber, String pincode, String govermentId) {
+        this.name = name;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+        this.pincode = pincode;
+        this.govermentId = govermentId;
+    }
 }
