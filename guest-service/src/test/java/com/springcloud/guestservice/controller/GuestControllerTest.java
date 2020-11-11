@@ -52,4 +52,86 @@ public class GuestControllerTest {
         // Testing status code
         assertEquals(response.getStatus(), 201);
     }
+
+    @Test
+    void testDeleteById() throws Exception {
+        ObjectMapper mapper = new ObjectMapper();
+
+        Guest guest = new Guest(
+                "Rahul Prasad",
+                "kolkata",
+                "2574961254",
+                "700022",
+                "aadhar"
+        );
+
+        MockHttpServletRequestBuilder requestGuest = MockMvcRequestBuilders.post("/api/v1/guests")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(mapper.writeValueAsString(guest));
+
+        String guestBody = mockMvc.perform(requestGuest)
+                .andReturn()
+                .getResponse()
+                .getContentAsString();
+
+        Guest actualGuest = mapper.readValue(guestBody, Guest.class);
+
+        long guestId = actualGuest.getId();
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.delete("/api/v1/guests/{id}", guestId);
+
+        MockHttpServletResponse response = mockMvc.perform(request)
+                .andReturn()
+                .getResponse();
+
+        // Testing status code
+        assertEquals(response.getStatus(), 200);
+    }
+
+    @Test
+    void testValidUpdateById() throws Exception {
+
+        ObjectMapper mapper = new ObjectMapper();
+
+        Guest guest = new Guest(
+                "Rahul Prasad",
+                "kolkata",
+                "2574961254",
+                "700022",
+                "aadhar"
+        );
+
+        MockHttpServletRequestBuilder requestGuest = MockMvcRequestBuilders.post("/api/v1/guests")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(mapper.writeValueAsString(guest));
+
+        String guestBody = mockMvc.perform(requestGuest)
+                .andReturn()
+                .getResponse()
+                .getContentAsString();
+
+        Guest actualGuest = mapper.readValue(guestBody, Guest.class);
+
+        long guestId = actualGuest.getId();
+
+       Guest guest1 = new Guest(
+                "Rahul Prasad",
+                "kolkata",
+                "2000061254",
+                "700021",
+                "aadharr"
+        );
+
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.put("/api/v1/guests/{id}", guestId)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(mapper.writeValueAsString(guest1));
+
+        MockHttpServletResponse response = mockMvc.perform(request)
+                .andReturn()
+                .getResponse();
+
+        // Testing status code
+        assertEquals(response.getStatus(), 200);
+
+
+    }
 }
