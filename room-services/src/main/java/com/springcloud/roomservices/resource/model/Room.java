@@ -20,4 +20,10 @@ public class Room {
     private String roomType;
     private Integer numberOfBeds;
     private Double pricePerDay;
+
+    public Room(String roomType, Integer numberOfBeds, Double pricePerDay) {
+        this.roomType = roomType;
+        this.numberOfBeds = numberOfBeds;
+        this.pricePerDay = pricePerDay;
+    }
 }
