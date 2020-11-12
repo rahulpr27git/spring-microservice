@@ -28,10 +28,10 @@ public class GuestService {
         Optional<Guest> guest = guestRepository.findById(id);
         if (guest.isPresent()) {
             guestRepository.deleteById(id);
-            return new Response(false,String.format("Guest with id: %s Deleted Successfully",id));
+            return new Response(false, String.format("Guest with id: %s Deleted Successfully", id));
         }
 
-        return new Response(true,String.format("Guest with id: %s not found",id));
+        return new Response(true, String.format("Guest with id: %s not found", id));
     }
 
 

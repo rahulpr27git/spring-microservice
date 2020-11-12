@@ -113,7 +113,7 @@ public class GuestControllerTest {
 
         long guestId = actualGuest.getId();
 
-       Guest guest1 = new Guest(
+        Guest guest1 = new Guest(
                 "Rahul Prasad",
                 "kolkata",
                 "2000061254",
