@@ -6,10 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
 
-import java.lang.reflect.ParameterizedType;
-import java.net.URI;
 import java.util.Collection;
 import java.util.List;
 
@@ -17,25 +14,15 @@ import java.util.List;
 @RequestMapping("room-reservation")
 public class RoomReservationController {
 
-    private final RestTemplate restTemplate;
+    private final RoomServiceClient roomServiceClient;
 
-    public RoomReservationController(RestTemplate restTemplate) {
-        this.restTemplate = restTemplate;
+    public RoomReservationController(RoomServiceClient roomServiceClient) {
+        this.roomServiceClient = roomServiceClient;
     }
 
     @GetMapping
     public Collection<Room> getALl() {
-        return getRooms();
-    }
-
-    public Collection<Room> getRooms() {
-        ResponseEntity<List<Room>> exchange = this.restTemplate.exchange(
-                "http://ROOMSERVICE/api/v1/rooms",
-                HttpMethod.GET,
-                null,
-                new ParameterizedTypeReference<>() {});
-
-        return exchange.getBody();
+        return this.roomServiceClient.getAll();
     }
 
 }

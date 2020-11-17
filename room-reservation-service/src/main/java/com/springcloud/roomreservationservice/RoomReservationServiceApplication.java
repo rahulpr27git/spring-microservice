@@ -10,6 +10,7 @@ import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
 @EnableDiscoveryClient
+@EnableFeignClients
 public class RoomReservationServiceApplication {
 
 	@Bean
