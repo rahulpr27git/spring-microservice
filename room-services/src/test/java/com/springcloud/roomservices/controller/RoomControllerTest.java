@@ -1,7 +1,7 @@
-package com.springcloud.guestservice.controller;
+package com.springcloud.roomservices.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.springcloud.guestservice.resource.model.Guest;
+import com.springcloud.roomservices.resource.model.Room;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,29 +18,27 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class GuestControllerTest {
+public class RoomControllerTest {
 
-    private final static Logger LOGGER = LoggerFactory.getLogger(GuestControllerTest.class);
+    private final static Logger LOGGER = LoggerFactory.getLogger(RoomControllerTest.class);
 
     @Autowired
     MockMvc mockMvc;
 
     @Test
-    void testCreateGuest() throws Exception {
+    void testCreateRoom() throws Exception {
 
         ObjectMapper mapper = new ObjectMapper();
 
-        Guest guest = new Guest(
-                "Rahul Prasad",
-                "kolkata",
-                "2574961254",
-                "700022",
-                "aadhar"
+        Room room = new Room(
+                "General",
+                1,
+                1000.0
         );
 
-        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.post("/api/v1/guests")
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.post("/api/v1/rooms")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(mapper.writeValueAsString(guest));
+                .content(mapper.writeValueAsString(room));
 
         MockHttpServletResponse response = mockMvc.perform(request)
                 .andReturn()
@@ -57,27 +55,25 @@ public class GuestControllerTest {
     void testDeleteById() throws Exception {
         ObjectMapper mapper = new ObjectMapper();
 
-        Guest guest = new Guest(
-                "Rahul Prasad",
-                "kolkata",
-                "2574961254",
-                "700022",
-                "aadhar"
+        Room room = new Room(
+                "General",
+                1,
+                1000.0
         );
 
-        MockHttpServletRequestBuilder requestGuest = MockMvcRequestBuilders.post("/api/v1/guests")
+        MockHttpServletRequestBuilder requestRoom = MockMvcRequestBuilders.post("/api/v1/rooms")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(mapper.writeValueAsString(guest));
+                .content(mapper.writeValueAsString(room));
 
-        String guestBody = mockMvc.perform(requestGuest)
+        String roomBody = mockMvc.perform(requestRoom)
                 .andReturn()
                 .getResponse()
                 .getContentAsString();
 
-        Guest actualGuest = mapper.readValue(guestBody, Guest.class);
+        Room actualRoom = mapper.readValue(roomBody, Room.class);
 
-        long guestId = actualGuest.getId();
-        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.delete("/api/v1/guests/{id}", guestId);
+        long roomId = actualRoom.getId();
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.delete("/api/v1/rooms/{id}", roomId);
 
         MockHttpServletResponse response = mockMvc.perform(request)
                 .andReturn()
@@ -92,38 +88,34 @@ public class GuestControllerTest {
 
         ObjectMapper mapper = new ObjectMapper();
 
-        Guest guest = new Guest(
-                "Rahul Prasad",
-                "kolkata",
-                "2574961254",
-                "700022",
-                "aadhar"
+        Room room = new Room(
+                "General",
+                1,
+                1000.0
         );
 
-        MockHttpServletRequestBuilder requestGuest = MockMvcRequestBuilders.post("/api/v1/guests")
+        MockHttpServletRequestBuilder requestRoom = MockMvcRequestBuilders.post("/api/v1/rooms")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(mapper.writeValueAsString(guest));
+                .content(mapper.writeValueAsString(room));
 
-        String guestBody = mockMvc.perform(requestGuest)
+        String roomBody = mockMvc.perform(requestRoom)
                 .andReturn()
                 .getResponse()
                 .getContentAsString();
 
-        Guest actualGuest = mapper.readValue(guestBody, Guest.class);
+        Room actualRoom = mapper.readValue(roomBody, Room.class);
 
-        long guestId = actualGuest.getId();
+        long roomId = actualRoom.getId();
 
-        Guest guest1 = new Guest(
-                "Rahul Prasad",
-                "kolkata",
-                "2000061254",
-                "700021",
-                "aadharr"
+        Room room1 = new Room(
+                "General",
+                2,
+                2000.0
         );
 
-        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.put("/api/v1/guests/{id}", guestId)
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.put("/api/v1/rooms/{id}", roomId)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(mapper.writeValueAsString(guest1));
+                .content(mapper.writeValueAsString(room1));
 
         MockHttpServletResponse response = mockMvc.perform(request)
                 .andReturn()

@@ -4,6 +4,7 @@ import com.springcloud.roomservices.resource.model.Room;
 import com.springcloud.roomservices.resource.pojo.Response;
 import com.springcloud.roomservices.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
@@ -26,6 +27,7 @@ public class RoomController {
         return roomService.getAll();
     }
 
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public Room addRoom(@RequestBody Room room) {
         return roomService.addRoom(room);
