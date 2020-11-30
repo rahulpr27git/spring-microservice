@@ -24,7 +24,10 @@ public class RoomController {
 
     @GetMapping
     public List<Room> getAll() {
-        return roomService.getAll();
+        return Arrays.asList(
+                new Room(1L, "big", 1, 3.5)
+        );
+        //return roomService.getAll();
     }
 
     @ResponseStatus(HttpStatus.CREATED)
